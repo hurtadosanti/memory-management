@@ -10,8 +10,8 @@ GraphNode::~GraphNode()
 {
     //// STUDENT CODE
     ////
-
-    delete _chatBot; 
+    // _chatbot is removed twice, this class is not the owner of the pointer
+    //delete _chatBot;
 
     ////
     //// EOF STUDENT CODE
