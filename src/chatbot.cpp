@@ -39,12 +39,6 @@ ChatBot::~ChatBot() {
     }
 }
 
-//// STUDENT CODE
-////
-
-////
-//// EOF STUDENT CODE
-
 void ChatBot::ReceiveMessageFromUser(std::string message) {
     // loop over all edges and keywords and compute Levenshtein distance to query
     typedef std::pair<GraphEdge *, int> EdgeDist;
@@ -134,23 +128,28 @@ int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2) {
 
 ChatBot &ChatBot::operator=(const ChatBot &other) {
     std::cout << "ChatBot copy assignment" << std::endl;
-    if(&other!=this){
+    if (&other != this) {
         _chatLogic = other._chatLogic;
         _rootNode = other._rootNode;
-        if (_image != NULL)
-        {
+        if (_image != NULL) {
             delete _image;
-            _image = other._image;
+            _image = new wxBitmap();
+            *_image = *other._image;
         }
     }
     return *this;
 }
 
-ChatBot::ChatBot(ChatBot &other) {
+ChatBot::ChatBot(ChatBot &&other) {
     std::cout << "ChatBot move constructor" << std::endl;
     _chatLogic = other._chatLogic;
     _rootNode = other._rootNode;
     _image = other._image;
+
+    other._image = NULL;
+    other._currentNode = nullptr;
+    other._chatLogic = nullptr;
+    other._currentNode = nullptr;
 }
 
 ChatBot &ChatBot::operator=(ChatBot &&other) {
